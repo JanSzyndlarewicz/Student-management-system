@@ -92,6 +92,13 @@ public class StudentController {
         }
     }
 
+    @GetMapping("students/{id}/grades")
+    public String getGrades(@PathVariable Long id, Model model){
+        model.addAttribute("student", studentService.getStudentById(id));
+        return "grades";
+    }
+
+
     @GetMapping("/students/page/{pageNo}")
     public String findPaginated(@PathVariable(value = "pageNo") int pageNo,
                                 @RequestParam("sortField") String sortField,

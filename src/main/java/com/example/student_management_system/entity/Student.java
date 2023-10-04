@@ -3,6 +3,9 @@ package com.example.student_management_system.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 //import javax.persistence.*;
 
 @Entity
@@ -22,6 +25,9 @@ public class Student {
     @Column(name = "email")
     private String email;
 
+    @ElementCollection
+    public ArrayList<Integer> grades;
+
     public Student() {
 
     }
@@ -31,6 +37,24 @@ public class Student {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.grades = new ArrayList<>();
+    }
+
+    public Student(String firstName, String lastName, String email, ArrayList<Integer> grades) {
+        super();
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.grades = grades;
+    }
+
+    public Student(String firstName, String lastName, String email, Integer grade) {
+        super();
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.grades = (ArrayList<Integer>) List.of(grade);
+
     }
     public Long getId() {
         return id;
@@ -60,5 +84,13 @@ public class Student {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public ArrayList<Integer> getGrades() {
+        return grades;
+    }
+
+    public void setGrades(ArrayList<Integer> grades) {
+        this.grades = grades;
     }
 }
