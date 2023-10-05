@@ -94,9 +94,12 @@ public class StudentController {
 
     @GetMapping("students/{id}/grades")
     public String getGrades(@PathVariable Long id, Model model){
-        model.addAttribute("student", studentService.getStudentById(id));
+        //model.addAttribute("grades", studentService.getStudentById(id).getGrades());
+        model.addAttribute("grades", List.of(5,6));
         return "grades";
     }
+
+
 
 
     @GetMapping("/students/page/{pageNo}")

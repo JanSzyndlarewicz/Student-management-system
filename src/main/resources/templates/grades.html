@@ -5,6 +5,16 @@
     <title>Title</title>
 </head>
 <body>
+<tbody>
+<tr th:each="grades: ${grades}">
+    <td th:text="${grades}"></td>
 
+
+</tr>
+<tr><td>
+    <a class="btn btn-primary">Add grade</a>
+</td></tr>
+
+</tbody>
 </body>
 </html>
