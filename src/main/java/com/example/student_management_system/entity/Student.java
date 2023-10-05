@@ -26,7 +26,8 @@ public class Student {
     private String email;
 
     @ElementCollection
-    public ArrayList<Integer> grades;
+    @Column(name = "grades")
+    public List<Integer> grades;
 
     public Student() {
 
@@ -40,7 +41,7 @@ public class Student {
         this.grades = new ArrayList<>();
     }
 
-    public Student(String firstName, String lastName, String email, ArrayList<Integer> grades) {
+   public Student(String firstName, String lastName, String email, List<Integer> grades) {
         super();
         this.firstName = firstName;
         this.lastName = lastName;
@@ -53,8 +54,7 @@ public class Student {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.grades = (ArrayList<Integer>) List.of(grade);
-
+        this.grades = List.of(grade);
     }
     public Long getId() {
         return id;
@@ -86,7 +86,7 @@ public class Student {
         this.email = email;
     }
 
-    public ArrayList<Integer> getGrades() {
+    public List<Integer> getGrades() {
         return grades;
     }
 
