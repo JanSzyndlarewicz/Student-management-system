@@ -90,7 +90,7 @@ public class Student {
         return grades;
     }
 
-    public void setGrades(ArrayList<Integer> grades) {
+    public void setGrades(List<Integer> grades) {
         this.grades = grades;
     }
 }

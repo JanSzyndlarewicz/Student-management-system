@@ -61,7 +61,7 @@ public class StudentController {
 
     @PostMapping("/students/{id}")
     public String updateStudent(@PathVariable Long id,
-    @ModelAttribute("student") Student student, Model model){
+    @ModelAttribute("student") Student student){
         Student existingStudent = studentService.getStudentById(id);
         existingStudent.setId(id);
         existingStudent.setFirstName(student.getFirstName());
@@ -92,11 +92,21 @@ public class StudentController {
         }
     }
 
-    @GetMapping("students/{id}/grades")
+    @GetMapping("/students/{id}/grades")
     public String getGrades(@PathVariable Long id, Model model){
         //model.addAttribute("grades", studentService.getStudentById(id).getGrades());
-        model.addAttribute("grades", List.of(5,6));
+        model.addAttribute("student", studentService.getStudentById(id));
         return "grades";
+    }
+
+    @GetMapping("/students/{id}/grades/{grade}")
+    public String addGrade(@PathVariable Long id, @PathVariable Integer grade, @ModelAttribute("student") Student student){
+        Student existingStudent = studentService.getStudentById(id);
+        existingStudent.getGrades().add(grade);
+        existingStudent.setGrades(existingStudent.getGrades());
+
+        studentService.updateStudent(existingStudent);
+        return "redirect:/students/" + id + "/grades";
     }
 
 
