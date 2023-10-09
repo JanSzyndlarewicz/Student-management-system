@@ -53,11 +53,6 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.save(student);
     }
 
- /*   @Override
-    public List<Integer> getStudentGrades(Long id) {
-        return studentRepository.findById(id).get().getGrades();
-    }*/
-
     @Override
     public void deleteStudentById(Long id) {
         studentRepository.deleteById(id);

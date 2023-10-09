@@ -2,11 +2,9 @@ package com.example.student_management_system.entity;
 
 
 import jakarta.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
-//import javax.persistence.*;
 
 @Entity
 @Table(name = "students")

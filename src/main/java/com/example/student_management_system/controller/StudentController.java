@@ -15,7 +15,7 @@ public class StudentController {
     private StudentService studentService;
     private String previousPage = null;
 
-    public StudentController(StudentService studentService){
+    public StudentController(StudentService studentService) {
         super();
         this.studentService = studentService;
     }
@@ -26,42 +26,40 @@ public class StudentController {
     }
 
     @GetMapping("/students")
-    public String listStudents(Model model){
+    public String listStudents(Model model) {
         model.addAttribute("students", studentService.getAllStudents());
         return "students";
     }
 
 
     @GetMapping("/students/new")
-    public String createStudentForm(Model model){
-        Student student= new Student();
+    public String createStudentForm(Model model) {
+        Student student = new Student();
         model.addAttribute("student", student);
         return "create_student";
     }
 
     @PostMapping("/students")
-    public String saveStudent(@ModelAttribute("student") Student student){
+    public String saveStudent(@ModelAttribute("student") Student student) {
         studentService.saveStudent(student);
-        if(previousPage != null){
+        if (previousPage != null) {
             String url = "redirect:" + previousPage;
             previousPage = null;
             return url;
-        }
-        else{
+        } else {
             return "redirect:/";
         }
-
     }
 
     @GetMapping("/students/edit/{id}")
-    public String editStudentForm(@PathVariable Long id, Model model){
+    public String editStudentForm(@PathVariable Long id, Model model) {
         model.addAttribute("student", studentService.getStudentById(id));
         return "edit_student";
     }
 
     @PostMapping("/students/{id}")
     public String updateStudent(@PathVariable Long id,
-    @ModelAttribute("student") Student student){
+                                @ModelAttribute("student") Student student) {
         Student existingStudent = studentService.getStudentById(id);
         existingStudent.setId(id);
         existingStudent.setFirstName(student.getFirstName());
@@ -69,54 +67,32 @@ public class StudentController {
         existingStudent.setEmail(student.getEmail());
 
         studentService.updateStudent(existingStudent);
-        if(previousPage != null){
+        if (previousPage != null) {
             String url = "redirect:" + previousPage;
             previousPage = null;
             return url;
-        }
-        else{
+        } else {
             return "redirect:/";
         }
     }
 
     @GetMapping("students/{id}")
-    public String deleteStudent(@PathVariable Long id){
+    public String deleteStudent(@PathVariable Long id) {
         studentService.deleteStudentById(id);
-        if(previousPage != null){
+        if (previousPage != null) {
             String url = "redirect:" + previousPage;
             previousPage = null;
             return url;
-        }
-        else{
+        } else {
             return "redirect:/";
         }
     }
-
-    @GetMapping("/students/{id}/grades")
-    public String getGrades(@PathVariable Long id, Model model){
-        //model.addAttribute("grades", studentService.getStudentById(id).getGrades());
-        model.addAttribute("student", studentService.getStudentById(id));
-        return "grades";
-    }
-
-    @GetMapping("/students/{id}/grades/{grade}")
-    public String addGrade(@PathVariable Long id, @PathVariable Integer grade, @ModelAttribute("student") Student student){
-        Student existingStudent = studentService.getStudentById(id);
-        existingStudent.getGrades().add(grade);
-        existingStudent.setGrades(existingStudent.getGrades());
-
-        studentService.updateStudent(existingStudent);
-        return "redirect:/students/" + id + "/grades";
-    }
-
-
-
 
     @GetMapping("/students/page/{pageNo}")
     public String findPaginated(@PathVariable(value = "pageNo") int pageNo,
                                 @RequestParam("sortField") String sortField,
                                 @RequestParam("sortDir") String sortDir,
-                                Model model){
+                                Model model) {
         int pageSize = 5;
 
         Page<Student> page = studentService.getAllStudents(pageNo, pageSize, sortField, sortDir);

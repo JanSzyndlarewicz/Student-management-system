@@ -12,13 +12,9 @@ public interface StudentService {
                                  @RequestParam(defaultValue = "10") Integer pageSize,
                                  @RequestParam(defaultValue = "id") String sortBy,
                                  @RequestParam(defaultValue = "ASC") String sortDirection);
-
     List<Student> getAllStudents();
-
     Student saveStudent(Student student);
     Student getStudentById(Long id);
     Student updateStudent(Student student);
-    //List<Integer> getStudentGrades(Long id);
-
     void deleteStudentById(Long id);
 }
